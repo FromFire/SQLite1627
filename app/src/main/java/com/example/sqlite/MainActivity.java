@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void init() {
+        //function--getID
         mButton1=(Button)findViewById(R.id.write);
         mButton2=(Button)findViewById(R.id.read);
         mButton3=(Button)findViewById(R.id.update);
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void event() {
+        //set button event
         mButton1.setOnClickListener(this);
         mButton2.setOnClickListener(this);
         mButton3.setOnClickListener(this);
@@ -75,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         db=helper.getWritableDatabase();
         switch (v.getId()){
-            case R.id.write:
+            case R.id.write:    //write
                 mTextView1.setVisibility(View.INVISIBLE);
                 mTextView2.setVisibility(View.VISIBLE);
                 mTextView3.setVisibility(View.VISIBLE);
@@ -105,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(MainActivity.this,"Write data successfully！", Toast.LENGTH_LONG).show();
                 }
                 break;
-            case R.id.read:
+            case R.id.read:   //read
                 String sql="SELECT* FROM user";
                 c=db.rawQuery(sql,new String[]{});
                 if(c.getCount()!=0){
@@ -125,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     mTextView1.setText(data);
                 }
                 break;
-            case R.id.update:
+            case R.id.update: //update
                 name=mEditText1.getText().toString();
                 email=mEditText2.getText().toString();
                 mNumber=mEditText3.getText().toString();
@@ -155,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(MainActivity.this,"Update successfully！", Toast.LENGTH_LONG).show();
                 }
                 break;
-            case R.id.remove:
+            case R.id.remove:   //remove all in the user table
                 try{
                     sql="DELETE FROM user";
                     db.execSQL(sql);
