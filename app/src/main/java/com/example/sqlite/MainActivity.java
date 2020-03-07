@@ -131,30 +131,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 name=mEditText1.getText().toString();
                 email=mEditText2.getText().toString();
                 mNumber=mEditText3.getText().toString();
-                sql="SELECT * FROM user where mNumber="+mNumber;
-                c=db.rawQuery(sql,new String[]{});
-                if(c.getCount()==0){
-                    Toast.makeText(MainActivity.this,"The number does't exist!", Toast.LENGTH_LONG).show();
-                }
-                else{
-                    try{
-
-                        if(name.isEmpty()&&email.isEmpty()&&mNumber.isEmpty()){
-                            Toast.makeText(MainActivity.this,"Please enter something to modify!", Toast.LENGTH_LONG).show();
-                        }
-                        if(!name.isEmpty()&&!mNumber.isEmpty()){
-                            sql="update user set name="+name+" where mNumber="+mNumber;
-                            db.execSQL(sql);
-                        }
-                        if(!email.isEmpty()&&!mNumber.isEmpty()){
-                            sql="update user set email="+email+" where mNumber="+mNumber;
-                            db.execSQL(sql);
-                        }
-                    }catch (SQLException e){
-                        e.printStackTrace();
-                        Toast.makeText(MainActivity.this,"Update failed！", Toast.LENGTH_LONG).show();
+                if(mNumber.isEmpty()){
+                    Toast.makeText(MainActivity.this,"Please input mobile number！", Toast.LENGTH_LONG).show();
+                }else{
+                    sql="SELECT * FROM user where mNumber="+mNumber;
+                    c=db.rawQuery(sql,new String[]{});
+                    if(c.getCount()==0){
+                        Toast.makeText(MainActivity.this,"The number does't exist!", Toast.LENGTH_LONG).show();
                     }
-                    Toast.makeText(MainActivity.this,"Update successfully！", Toast.LENGTH_LONG).show();
+                    else{
+                        try{
+
+                            if(name.isEmpty()&&email.isEmpty()){
+                                Toast.makeText(MainActivity.this,"Please enter something to modify!", Toast.LENGTH_LONG).show();
+                            }
+                            if(!name.isEmpty()&&!mNumber.isEmpty()){
+                                sql="update user set name="+name+" where mNumber="+mNumber;
+                                db.execSQL(sql);
+                                Toast.makeText(MainActivity.this,"Update successfully！", Toast.LENGTH_LONG).show();
+                            }
+                            if(!email.isEmpty()&&!mNumber.isEmpty()){
+                                sql="update user set email="+email+" where mNumber="+mNumber;
+                                db.execSQL(sql);
+                                Toast.makeText(MainActivity.this,"Update successfully！", Toast.LENGTH_LONG).show();
+                            }
+                        }catch (SQLException e){
+                            e.printStackTrace();
+                            Toast.makeText(MainActivity.this,"Update failed！", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
                 }
                 break;
             case R.id.remove:   //remove all in the user table
